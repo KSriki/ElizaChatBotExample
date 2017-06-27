@@ -11,13 +11,13 @@ public class ElizaApplication {
 		
 		System.out.printf("Good day. What is your problem? Enter your response here or Q to quit: ");
 		input = scan.nextLine();
-		
-		while(!input.equals("Q")){
+		input = input.toLowerCase();
+		while(!input.equals("q")){
 			
 
-			eliza.addHedge(input);
 			System.out.println(eliza.response(input));
-			input = scan.nextLine();
+			System.out.print("Enter your response here or Q to quit: "); 
+			input = scan.nextLine().toLowerCase();
 				
 		}	
 		

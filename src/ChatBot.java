@@ -22,11 +22,16 @@ public class ChatBot {
     You seem to think that
     So, you are concerned that
 		 */
+		
+		hedgeSet.add("Please tell me more");
+		hedgeSet.add("Many of my patients tell me the same thing");
+		hedgeSet.add("It is getting late, maybe we had better quit");
+		
 		qualifierSet.add("Why do you say that");
 		qualifierSet.add("You seem to think that");
 		qualifierSet.add("So, you are concerned that");
 		
-		replacementMap.put("I", "you");
+		replacementMap.put("i", "you");
 		replacementMap.put("me", "you");
 		replacementMap.put("my", "your");
 		replacementMap.put("am", "are");
@@ -35,15 +40,11 @@ public class ChatBot {
 		
 		// TODO Auto-generated constructor stub
 	}
-
-	public void addHedge(String input){
-		hedgeSet.add(input);
-	}
 	
-	private String choice(){
+	private String choice(Set s){
 		Random rand = new Random();
-		int index = rand.nextInt(qualifierSet.size());
-		Iterator<String> iter = qualifierSet.iterator();
+		int index = rand.nextInt(s.size());
+		Iterator<String> iter = s.iterator();
 		for (int i = 0; i < index; i++) {
 		    iter.next();
 		}
@@ -57,7 +58,7 @@ public class ChatBot {
 	 */
 	private String replace(String input){
 		String[] words = input.split("([^a-zA-Z']+)'*\\1*");
-		String qual = choice();
+		String qual = choice(qualifierSet);
 		String response = "";
 		for(int i = 0; i < words.length; i++){
 		
@@ -79,9 +80,16 @@ public class ChatBot {
 	}
 	
 	public String response(String input){
+		//use hedges or restructured response
 		
-		return replace(input);
-		
+		Random rand = new Random();
+		int style = rand.nextInt(2);
+		if(style == 0){
+			return replace(input);
+		}
+		else{
+			return choice(hedgeSet);
+		}
 		
 	}
 }
